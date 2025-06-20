@@ -8,12 +8,22 @@ import { LanguageSelector } from "../components/LanguageSelector";
 import { translations } from "../utils/translations";
 
 export default function Home() {
-  const [stage, setStage] = useState<"start" | "done">("start");
+  const [stage, setStage] = useState<"ready" | "testing" | "done">("ready");
   const [lowFreq, setLowFreq] = useState<number | null>(null);
   const [highFreq, setHighFreq] = useState<number | null>(null);
   const [language, setLanguage] = useState<"en" | "gr">("gr");
+  const [countdown, setCountdown] = useState(3);
 
   const t = translations[language];
+
+  React.useEffect(() => {
+    if (stage === "ready" && countdown > 0) {
+      const timer = setTimeout(() => setCountdown((c) => c - 1), 1000);
+      return () => clearTimeout(timer);
+    } else if (countdown === 0 && stage === "ready") {
+      setStage("testing");
+    }
+  }, [countdown, stage]);
 
   return (
     <>
@@ -28,15 +38,20 @@ export default function Home() {
         <LanguageSelector language={language} setLanguage={setLanguage} />
 
         <h1>{t.title}</h1>
-        <p>{stage === "start" ? t.instructionStart : t.instructionStop}</p>
 
-        <EarButton
-          stage={stage}
-          setStage={setStage}
-          setLowFreq={setLowFreq}
-          setHighFreq={setHighFreq}
-          language={language}
-        />
+        {stage === "ready" && <p>{language === "en" ? `Test starts in ${countdown}...` : `Το τεστ ξεκινά σε ${countdown}...`}</p>}
+        {stage === "testing" && <p>{language === "en" ? "Tap the ear when you stop hearing the tone" : "Πάτα το αυτί όταν σταματήσεις να ακούς"}</p>}
+        {stage === "done" && <p>{language === "en" ? "Your results:" : "Αποτελέσματα:"}</p>}
+
+        {stage !== "done" && (
+          <EarButton
+            stage={stage}
+            setStage={setStage}
+            setLowFreq={setLowFreq}
+            setHighFreq={setHighFreq}
+            language={language}
+          />
+        )}
 
         {stage === "done" && (
           <ResultDisplay lowFreq={lowFreq} highFreq={highFreq} language={language} />
