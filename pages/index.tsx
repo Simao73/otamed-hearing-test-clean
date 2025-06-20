@@ -63,11 +63,16 @@ export default function Home() {
 
         {stage === "done" && (
           <ResultDisplay
-            lowFreq={lowFreq}
-            highFreq={highFreq}
-            language={language}
-            onRestart={handleRestart}
-          />
+  lowFreq={lowFreq}
+  highFreq={highFreq}
+  language={language}
+  onRestart={() => {
+    setStage("ready");
+    setLowFreq(null);
+    setHighFreq(null);
+    setCountdown(3);
+  }}
+/>
         )}
       </main>
     </>
