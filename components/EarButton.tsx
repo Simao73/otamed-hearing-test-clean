@@ -4,6 +4,7 @@ import Image from "next/image";
 interface Props {
   stage: "start" | "ready" | "testing" | "done";
   setStage: (stage: "start" | "ready" | "testing" | "done") => void;
+
   setLowFreq: (freq: number) => void;
   setHighFreq: (freq: number) => void;
   language: "en" | "gr";
