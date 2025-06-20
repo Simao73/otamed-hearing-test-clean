@@ -66,29 +66,28 @@ export const EarButton: React.FC<Props> = ({
   };
 
   return (
-    <div style={{ marginTop: "30px", textAlign: "center" }}>
-      <button
-        onClick={handleClick}
-        style={{
-          background: "none",
-          border: "none",
-          cursor: "pointer",
-          animation: playing ? "pulse 1s infinite" : "none",
-        }}
-      >
-        <Image src="/images/ear.svg" alt="Ear" width={150} height={150} />
-      </button>
-      <p style={{ color: "#eee", marginTop: "10px" }}>
-        {playing ? labels[language][1] : labels[language][0]}
-      </p>
+  <div
+    onClick={handleClick}
+    style={{
+      cursor: "pointer",
+      userSelect: "none",
+      display: "inline-block",
+      animation: isPlaying ? "pulse 1s infinite" : "none"
+    }}
+  >
+    <Image
+      src="/images/ear.png"
+      alt="Ear"
+      width={150}
+      height={150}
+    />
+    <style jsx>{`
+      @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.15); }
+        100% { transform: scale(1); }
+      }
+    `}</style>
+  </div>
+);
 
-      <style jsx>{`
-        @keyframes pulse {
-          0% { transform: scale(1); }
-          50% { transform: scale(1.1); }
-          100% { transform: scale(1); }
-        }
-      `}</style>
-    </div>
-  );
-};
