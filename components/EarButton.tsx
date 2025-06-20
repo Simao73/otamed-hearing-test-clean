@@ -72,7 +72,7 @@ export const EarButton: React.FC<Props> = ({
       cursor: "pointer",
       userSelect: "none",
       display: "inline-block",
-      animation: isPlaying ? "pulse 1s infinite" : "none"
+      animation: Playing ? "pulse 1s infinite" : "none"
     }}
   >
     <Image
