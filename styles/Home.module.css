@@ -8,18 +8,36 @@
   color: white;
   padding-top: 40px;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.main::before {
+  content: "";
   background-image: url('/logo/otamed-logo.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: 60%;
-  opacity: 0.96;
+  opacity: 0.05; /* 👈 πιο διαφανές */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
 }
 
 .logo {
   margin-bottom: 30px;
+  z-index: 1;
 }
 
 .countdown {
   font-size: 2rem;
   margin-bottom: 20px;
+  z-index: 1;
+}
+
+h1, p {
+  z-index: 1;
 }
