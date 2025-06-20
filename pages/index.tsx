@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
@@ -16,7 +16,7 @@ export default function Home() {
 
   const t = translations[language];
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (stage === "ready" && countdown > 0) {
       const timer = setTimeout(() => setCountdown((c) => c - 1), 1000);
       return () => clearTimeout(timer);
@@ -37,11 +37,27 @@ export default function Home() {
 
         <LanguageSelector language={language} setLanguage={setLanguage} />
 
-        <h1>{t.title}</h1>
+        <h1 className={styles.heading}>{t.title}</h1>
 
-        {stage === "ready" && <p>{language === "en" ? `Test starts in ${countdown}...` : `Το τεστ ξεκινά σε ${countdown}...`}</p>}
-        {stage === "testing" && <p>{language === "en" ? "Tap the ear when you stop hearing the tone" : "Πάτα το αυτί όταν σταματήσεις να ακούς"}</p>}
-        {stage === "done" && <p>{language === "en" ? "Your results:" : "Αποτελέσματα:"}</p>}
+        {stage === "ready" && (
+          <p className={styles.paragraph}>
+            {language === "en"
+              ? `Test starts in ${countdown}...`
+              : `Το τεστ ξεκινά σε ${countdown}...`}
+          </p>
+        )}
+        {stage === "testing" && (
+          <p className={styles.paragraph}>
+            {language === "en"
+              ? "Tap the ear when you stop hearing the tone"
+              : "Πάτα το αυτί όταν σταματήσεις να ακούς"}
+          </p>
+        )}
+        {stage === "done" && (
+          <p className={styles.paragraph}>
+            {language === "en" ? "Your results:" : "Αποτελέσματα:"}
+          </p>
+        )}
 
         {stage !== "done" && (
           <EarButton
@@ -54,7 +70,11 @@ export default function Home() {
         )}
 
         {stage === "done" && (
-          <ResultDisplay lowFreq={lowFreq} highFreq={highFreq} language={language} />
+          <ResultDisplay
+            lowFreq={lowFreq}
+            highFreq={highFreq}
+            language={language}
+          />
         )}
       </main>
     </>
