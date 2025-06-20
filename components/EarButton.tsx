@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 interface Props {
-  stage: "start" | "done";
-  setStage: (stage: "start" | "done") => void;
+  stage: "start" | "ready" | "testing" | "done";
+  setStage: (stage: "start" | "ready" | "testing" | "done") => void;
   setLowFreq: (freq: number) => void;
   setHighFreq: (freq: number) => void;
   language: "en" | "gr";
@@ -24,9 +24,8 @@ export const EarButton: React.FC<Props> = ({
   const [endFreq] = useState(20000); // Hz
   const duration = 20; // seconds
 
-  const handleClick = () => {
-    if (!playing) {
-      // 1st click → start tone
+  useEffect(() => {
+    if (stage === "testing") {
       const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
       const oscillator = audioCtx.createOscillator();
       oscillator.type = "sine";
@@ -42,8 +41,11 @@ export const EarButton: React.FC<Props> = ({
 
       setLowFreq(startFreq);
       setPlaying(true);
-    } else {
-      // 2nd click → stop + record
+    }
+  }, [stage]);
+
+  const handleClick = () => {
+    if (playing) {
       const audioCtx = audioRef.current;
       const oscillator = oscillatorRef.current;
       const elapsed = (audioCtx?.currentTime || 0) - startTimeRef.current;
@@ -60,35 +62,30 @@ export const EarButton: React.FC<Props> = ({
     }
   };
 
-  const labels = {
-    en: ["Tap the ear when you hear", "Tap again when you can't hear"],
-    gr: ["Πάτα το αυτί όταν αρχίσεις να ακούς", "Ξαναπάτα όταν σταματήσεις να ακούς"],
-  };
-
   return (
-  <div
-    onClick={handleClick}
-    style={{
-      cursor: "pointer",
-      userSelect: "none",
-      display: "inline-block",
-      animation: playing ? "pulse 1s infinite" : "none"
-    }}
-  >
-    <Image
-      src="/images/ear.png"
-      alt="Ear"
-      width={150}
-      height={150}
-    />
-    <style jsx>{`
-      @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.15); }
-        100% { transform: scale(1); }
-      }
-    `}</style>
-  </div>
-);
+    <div
+      onClick={handleClick}
+      style={{
+        cursor: "pointer",
+        userSelect: "none",
+        display: "inline-block",
+        animation: playing ? "pulse 1s infinite" : "none",
+      }}
+    >
+      <Image src="/images/ear.png" alt="Ear" width={150} height={150} />
+      <style jsx>{`
+        @keyframes pulse {
+          0% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(1.15);
+          }
+          100% {
+            transform: scale(1);
+          }
+        }
+      `}</style>
+    </div>
+  );
 };
-
