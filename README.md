@@ -1,4 +1,4 @@
-# 👂 Otamed Ear Age Test
+# 👂 Otamed Iliades Ear Age Test
 
 A playful hearing range tester that estimates your ear age based on the lowest and highest frequencies you can hear.  
 Made by Otamed Iliadis for awareness & promo use — not for diagnosis!
