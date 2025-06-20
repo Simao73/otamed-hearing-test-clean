@@ -32,7 +32,7 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <div className={styles.logo}>
-          <Image src="/logo/otamed-logo.png" alt="Otamed" width={200} height={60} />
+          <Image src="/logo/otamed-logo.png" alt="Otamed" width={300} height={100} />
         </div>
 
         <LanguageSelector language={language} setLanguage={setLanguage} />
