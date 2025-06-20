@@ -24,8 +24,9 @@ export const EarButton: React.FC<Props> = ({
   const [endFreq] = useState(20000); // Hz
   const duration = 20; // seconds
 
+  // 👉 Αυτό ξεκινά τον ήχο ΜΟΛΙΣ αρχίσει το test
   useEffect(() => {
-    if (stage === "testing") {
+    if (stage === "testing" && !playing) {
       const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
       const oscillator = audioCtx.createOscillator();
       oscillator.type = "sine";
@@ -75,15 +76,9 @@ export const EarButton: React.FC<Props> = ({
       <Image src="/images/ear.png" alt="Ear" width={150} height={150} />
       <style jsx>{`
         @keyframes pulse {
-          0% {
-            transform: scale(1);
-          }
-          50% {
-            transform: scale(1.15);
-          }
-          100% {
-            transform: scale(1);
-          }
+          0% { transform: scale(1); }
+          50% { transform: scale(1.15); }
+          100% { transform: scale(1); }
         }
       `}</style>
     </div>
