@@ -90,4 +90,5 @@ export const EarButton: React.FC<Props> = ({
     `}</style>
   </div>
 );
+};
 
