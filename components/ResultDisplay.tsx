@@ -14,13 +14,22 @@ export const ResultDisplay: React.FC<Props> = ({
   onRestart,
 }) => {
   return (
-    <div>
-      <p>
+    <div style={{ textAlign: "center" }}>
+      <h2>
         {language === "en"
           ? `You heard from ${lowFreq}Hz to ${highFreq}Hz`
           : `Ακούσατε από ${lowFreq}Hz έως ${highFreq}Hz`}
-      </p>
-      <button onClick={onRestart}>
+      </h2>
+      <button
+        onClick={onRestart}
+        style={{
+          marginTop: "20px",
+          padding: "10px 20px",
+          fontSize: "1rem",
+          cursor: "pointer",
+          borderRadius: "5px",
+        }}
+      >
         {language === "en" ? "New Test" : "Νέο Τεστ"}
       </button>
     </div>
