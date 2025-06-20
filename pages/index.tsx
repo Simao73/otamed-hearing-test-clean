@@ -8,10 +8,10 @@ import { LanguageSelector } from "../components/LanguageSelector";
 import { translations } from "../utils/translations";
 
 export default function Home() {
+  const [stage, setStage] = useState<"start" | "done">("start");
   const [lowFreq, setLowFreq] = useState<number | null>(null);
   const [highFreq, setHighFreq] = useState<number | null>(null);
   const [language, setLanguage] = useState<"en" | "gr">("gr");
-  const [testComplete, setTestComplete] = useState(false);
 
   const t = translations[language];
 
@@ -22,34 +22,24 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <div className={styles.logo}>
-          <Image src="/logo/otamed-logo.png" alt="Otamed" width={150} height={50} />
+          <Image src="/logo/otamed-logo.png" alt="Otamed" width={200} height={60} />
         </div>
 
         <LanguageSelector language={language} setLanguage={setLanguage} />
 
         <h1>{t.title}</h1>
-        <p>
-          {testComplete
-            ? ""
-            : lowFreq === null
-            ? t.instructionStart
-            : t.instructionStop}
-        </p>
+        <p>{stage === "start" ? t.instructionStart : t.instructionStop}</p>
 
         <EarButton
-          onFrequenciesCaptured={(low, high) => {
-            setLowFreq(low);
-            setHighFreq(high);
-            setTestComplete(true);
-          }}
+          stage={stage}
+          setStage={setStage}
+          setLowFreq={setLowFreq}
+          setHighFreq={setHighFreq}
+          language={language}
         />
 
-        {testComplete && (
-          <ResultDisplay
-            lowFreq={lowFreq}
-            highFreq={highFreq}
-            language={language}
-          />
+        {stage === "done" && (
+          <ResultDisplay lowFreq={lowFreq} highFreq={highFreq} language={language} />
         )}
       </main>
     </>
