@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 interface Props {
-  stage: "start" | "testing" | "done";
+  stage: "ready" | "start" | "testing" | "done";
   setStage: (stage: "testing" | "done") => void;
   setLowFreq: (freq: number) => void;
   setHighFreq: (freq: number) => void;
