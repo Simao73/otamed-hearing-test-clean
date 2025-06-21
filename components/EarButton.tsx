@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 interface Props {
-  stage: "start" | "ready" | "testing" | "done";
-  setStage: (stage: "start" | "ready" | "testing" | "done") => void;
+  stage: "ready" | "testing" | "done";
+  setStage: (stage: "ready" | "testing" | "done") => void;
   setLowFreq: (freq: number) => void;
   setHighFreq: (freq: number) => void;
   language: "en" | "gr";
@@ -24,42 +24,45 @@ export const EarButton: React.FC<Props> = ({
   const [endFreq] = useState(20000); // Hz
   const duration = 20; // seconds
 
-  // 👉 Αυτό ξεκινά τον ήχο ΜΟΛΙΣ αρχίσει το test
+  const startTest = () => {
+    const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
+    const oscillator = audioCtx.createOscillator();
+    oscillator.type = "sine";
+    oscillator.frequency.setValueAtTime(startFreq, audioCtx.currentTime);
+    oscillator.frequency.linearRampToValueAtTime(endFreq, audioCtx.currentTime + duration);
+    oscillator.connect(audioCtx.destination);
+    oscillator.start();
+
+    audioRef.current = audioCtx;
+    oscillatorRef.current = oscillator;
+    startTimeRef.current = audioCtx.currentTime;
+    setLowFreq(startFreq);
+    setPlaying(true);
+  };
+
+  const stopTest = () => {
+    const audioCtx = audioRef.current;
+    const oscillator = oscillatorRef.current;
+    const elapsed = (audioCtx?.currentTime || 0) - startTimeRef.current;
+    const estimatedFreq = Math.round(
+      startFreq + ((endFreq - startFreq) * (elapsed / duration))
+    );
+    setHighFreq(estimatedFreq);
+    oscillator?.stop();
+    audioCtx?.close();
+    setPlaying(false);
+    setStage("done");
+  };
+
   useEffect(() => {
     if (stage === "testing" && !playing) {
-      const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
-      const oscillator = audioCtx.createOscillator();
-      oscillator.type = "sine";
-      oscillator.frequency.setValueAtTime(startFreq, audioCtx.currentTime);
-      oscillator.frequency.linearRampToValueAtTime(endFreq, audioCtx.currentTime + duration);
-
-      oscillator.connect(audioCtx.destination);
-      oscillator.start();
-
-      audioRef.current = audioCtx;
-      oscillatorRef.current = oscillator;
-      startTimeRef.current = audioCtx.currentTime;
-
-      setLowFreq(startFreq);
-      setPlaying(true);
+      startTest();
     }
   }, [stage]);
 
   const handleClick = () => {
-    if (playing) {
-      const audioCtx = audioRef.current;
-      const oscillator = oscillatorRef.current;
-      const elapsed = (audioCtx?.currentTime || 0) - startTimeRef.current;
-      const estimatedFreq = Math.round(
-        startFreq + ((endFreq - startFreq) * (elapsed / duration))
-      );
-
-      setHighFreq(estimatedFreq);
-      oscillator?.stop();
-      audioCtx?.close();
-
-      setPlaying(false);
-      setStage("done");
+    if (stage === "testing" && playing) {
+      stopTest();
     }
   };
 
@@ -67,7 +70,7 @@ export const EarButton: React.FC<Props> = ({
     <div
       onClick={handleClick}
       style={{
-        cursor: "pointer",
+        cursor: stage === "testing" ? "pointer" : "default",
         userSelect: "none",
         display: "inline-block",
         animation: playing ? "pulse 1s infinite" : "none",
