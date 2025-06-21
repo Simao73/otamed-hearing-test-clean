@@ -34,6 +34,12 @@ export default function Home() {
   const handleStartTest = () => {
     setStage("testing");
   };
+  const restartTest = () => {
+  setStage("ready");
+  setLowFreq(null);
+  setHighFreq(null);
+  setCountdown(3);
+};
 
   return (
     <>
