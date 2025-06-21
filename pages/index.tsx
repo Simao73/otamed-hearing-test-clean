@@ -1,4 +1,3 @@
-// pages/index.tsx
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
@@ -9,7 +8,7 @@ import { LanguageSelector } from "../components/LanguageSelector";
 import { translations } from "../utils/translations";
 
 export default function Home() {
- const [stage, setStage] = useState<"ready" | "testing" | "done">("ready");
+  const [stage, setStage] = useState<"ready" | "testing" | "done">("ready");
   const [lowFreq, setLowFreq] = useState<number | null>(null);
   const [highFreq, setHighFreq] = useState<number | null>(null);
   const [language, setLanguage] = useState<"en" | "gr">("gr");
@@ -22,7 +21,7 @@ export default function Home() {
       const timer = setTimeout(() => setCountdown((c) => c - 1), 1000);
       return () => clearTimeout(timer);
     } else if (countdown === 0 && stage === "ready") {
-      setStage("start");
+      setStage("testing");
     }
   }, [countdown, stage]);
 
@@ -48,7 +47,7 @@ export default function Home() {
         <h1>{t.title}</h1>
 
         {stage === "ready" && <p>{language === "en" ? `Test starts in ${countdown}...` : `Το τεστ ξεκινά σε ${countdown}...`}</p>}
-        {stage === "start" && <p>{language === "en" ? "Tap the ear when you stop hearing the tone" : "Πάτα το αυτί όταν σταματήσεις να ακούς"}</p>}
+        {stage === "testing" && <p>{language === "en" ? "Tap the ear when you stop hearing the tone" : "Πάτα το αυτί όταν σταματήσεις να ακούς"}</p>}
         {stage === "done" && <p>{language === "en" ? "Your results:" : "Αποτελέσματα:"}</p>}
 
         {stage !== "done" && (
@@ -63,16 +62,11 @@ export default function Home() {
 
         {stage === "done" && (
           <ResultDisplay
-  lowFreq={lowFreq}
-  highFreq={highFreq}
-  language={language}
-  onRestart={() => {
-    setStage("ready");
-    setLowFreq(null);
-    setHighFreq(null);
-    setCountdown(3);
-  }}
-/>
+            lowFreq={lowFreq}
+            highFreq={highFreq}
+            language={language}
+            onRestart={handleRestart}
+          />
         )}
       </main>
     </>
