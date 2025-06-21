@@ -21,7 +21,7 @@ export const ResultDisplay: React.FC<Props> = ({
           : `Ακούσατε από ${lowFreq}Hz έως ${highFreq}Hz`}
       </h2>
       <button
-        onClick={onRestart}//
+        onClick={onRestart} //
         style={{
           marginTop: "20px",
           padding: "10px 20px",
