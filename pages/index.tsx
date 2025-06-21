@@ -35,12 +35,6 @@ export default function Home() {
     setHighFreq(null);
     setCountdown(3);
     setStage("ready");
-    console.log("Stage before reset:", stage);
-setLowFreq(null);
-setHighFreq(null);
-setCountdown(3);
-setStage("ready");
-console.log("Stage after reset:", "ready");
   };
 
   return (
