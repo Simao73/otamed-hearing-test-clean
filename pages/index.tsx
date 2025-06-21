@@ -35,7 +35,6 @@ export default function Home() {
     setStage("testing");
   };
 
-  \
   return (
     <>
       <Head>
