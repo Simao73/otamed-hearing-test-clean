@@ -95,10 +95,11 @@ useEffect(() => {
             onRestart={restartTest}
           />
         )}
+        {showDisclaimer && (
+  <DisclaimerModal onClose={() => setShowDisclaimer(false)} />
+)}
       </main>
     </>
   );
 }
-{showDisclaimer && (
-  <DisclaimerModal onClose={() => setShowDisclaimer(false)} />
-)}
+
