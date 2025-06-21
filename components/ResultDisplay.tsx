@@ -13,6 +13,7 @@ export const ResultDisplay: React.FC<Props> = ({
   language,
   onRestart,
 }) => {
+   console.log("✅ ResultDisplay loaded. onRestart exists:", typeof onRestart);
   return (
     <div style={{ textAlign: "center" }}>
       <h2>
@@ -20,21 +21,23 @@ export const ResultDisplay: React.FC<Props> = ({
           ? `You heard from ${lowFreq ?? 0}Hz to ${highFreq ?? 0}Hz`
           : `Ακούσατε από ${lowFreq ?? 0}Hz έως ${highFreq ?? 0}Hz`}
       </h2>
-      <button
-        onClick={() => {
-          console.log("New Test button clicked"); // 🔍 για debugging
-          onRestart();
-        }}
-        style={{
-          marginTop: "20px",
-          padding: "10px 20px",
-          fontSize: "1rem",
-          cursor: "pointer",
-          borderRadius: "5px",
-        }}
-      >
-        {language === "en" ? "New Test" : "Νέο Τεστ"}
-      </button>
+    <button
+  onClick={() => {
+    alert("👉 Click καταγράφηκε!");
+    console.log("🔁 onRestart will now fire");
+    onRestart();
+  }}
+  style={{
+    marginTop: "20px",
+    padding: "10px 20px",
+    fontSize: "1rem",
+    cursor: "pointer",
+    borderRadius: "5px",
+  }}
+>
+  {language === "en" ? "New Test" : "Νέο Τεστ"}
+</button>
+
     </div>
   );
 };
