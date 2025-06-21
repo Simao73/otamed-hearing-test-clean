@@ -35,13 +35,7 @@ export default function Home() {
     setStage("testing");
   };
 
-  const handleRestart = () => {
-    setStage("ready");
-    setCountdown(3);
-    setLowFreq(null);
-    setHighFreq(null);
-  };
-
+  \
   return (
     <>
       <Head>
