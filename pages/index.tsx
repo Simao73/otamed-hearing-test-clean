@@ -92,7 +92,7 @@ export default function Home() {
             lowFreq={lowFreq}
             highFreq={highFreq}
             language={language}
-            onRestart={handleRestart}
+            onRestart={restartTest} //
           />
         )}
       </main>
