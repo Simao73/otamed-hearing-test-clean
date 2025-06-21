@@ -30,10 +30,11 @@ export default function Home() {
   };
 
   const restartTest = () => {
-    setStage("ready");
+    console.log("Restarting test...");
     setLowFreq(null);
     setHighFreq(null);
     setCountdown(3);
+    setStage("ready");
   };
 
   return (
