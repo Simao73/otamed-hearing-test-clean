@@ -13,11 +13,7 @@ export default function Home() {
   const [highFreq, setHighFreq] = useState<number | null>(null);
   const [language, setLanguage] = useState<"en" | "gr">("gr");
   const [countdown, setCountdown] = useState(3);
-  const restartTest = () => {
-  setLowFreq(null);
-  setHighFreq(null);
-  setCountdown(3);
-  setStage("ready");
+  
 };
 
   const t = translations[language];
