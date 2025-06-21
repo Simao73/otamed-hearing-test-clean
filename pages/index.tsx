@@ -13,6 +13,7 @@ export default function Home() {
   const [highFreq, setHighFreq] = useState<number | null>(null);
   const [language, setLanguage] = useState<"en" | "gr">("gr");
   const [countdown, setCountdown] = useState(3);
+  const [showDisclaimer, setShowDisclaimer] = useState(false);
 
   const t = translations[language];
 
@@ -28,6 +29,11 @@ export default function Home() {
   const handleStartTest = () => {
     setStage("testing");
   };
+useEffect(() => {
+  if (stage === "done") {
+    setShowDisclaimer(true);
+  }
+}, [stage]);
 
   const restartTest = () => {
     setLowFreq(null);
@@ -93,3 +99,6 @@ export default function Home() {
     </>
   );
 }
+{showDisclaimer && (
+  <DisclaimerModal onClose={() => setShowDisclaimer(false)} />
+)}
