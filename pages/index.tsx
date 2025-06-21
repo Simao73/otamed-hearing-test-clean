@@ -30,7 +30,6 @@ export default function Home() {
   };
 
   const restartTest = () => {
-    console.log("Restarting test...");
     setLowFreq(null);
     setHighFreq(null);
     setCountdown(3);
@@ -50,7 +49,6 @@ export default function Home() {
         <LanguageSelector language={language} setLanguage={setLanguage} />
 
         <h1>{t.title}</h1>
-console.log("Current stage is:", stage);
 
         {stage === "ready" && (
           <p>
@@ -75,7 +73,7 @@ console.log("Current stage is:", stage);
             </p>
             <EarButton
               stage={stage}
-              setStage={(s) => setStage(s)}
+              setStage={setStage}
               setLowFreq={setLowFreq}
               setHighFreq={setHighFreq}
               language={language}
