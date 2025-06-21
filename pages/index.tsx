@@ -25,6 +25,10 @@ export default function Home() {
     }
   }, [countdown, stage]);
 
+  const handleStartTest = () => {
+    setStage("testing");
+  };
+
   const handleRestart = () => {
     setStage("ready");
     setCountdown(3);
@@ -53,23 +57,28 @@ export default function Home() {
               : `Το τεστ ξεκινά σε ${countdown}...`}
           </p>
         )}
-        {stage === "testing" && (
-          <p>
-            {language === "en"
-              ? "Tap the ear when you stop hearing the tone"
-              : "Πάτα το αυτί όταν σταματήσεις να ακούς"}
-          </p>
-        )}
-        {stage === "done" && <p>{language === "en" ? "Your results:" : "Αποτελέσματα:"}</p>}
 
-        {stage !== "done" && (
-          <EarButton
-            stage={stage}
-            setStage={(s) => setStage(s)}
-            setLowFreq={setLowFreq}
-            setHighFreq={setHighFreq}
-            language={language}
-          />
+        {stage === "start" && (
+          <button className={styles.startButton} onClick={handleStartTest}>
+            {language === "en" ? "Start Test" : "Ξεκίνα Τεστ"}
+          </button>
+        )}
+
+        {stage === "testing" && (
+          <>
+            <p>
+              {language === "en"
+                ? "Tap the ear when you stop hearing the tone"
+                : "Πάτα το αυτί όταν σταματήσεις να ακούς"}
+            </p>
+            <EarButton
+              stage={stage}
+              setStage={(s) => setStage(s)}
+              setLowFreq={setLowFreq}
+              setHighFreq={setHighFreq}
+              language={language}
+            />
+          </>
         )}
 
         {stage === "done" && (
