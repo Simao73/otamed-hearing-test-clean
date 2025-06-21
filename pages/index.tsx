@@ -9,7 +9,7 @@ import { LanguageSelector } from "../components/LanguageSelector";
 import { translations } from "../utils/translations";
 
 export default function Home() {
-  const [stage, setStage] = useState<"ready" | "start" | "testing" | "done">("ready");
+ const [stage, setStage] = useState<"ready" | "testing" | "done">("ready");
   const [lowFreq, setLowFreq] = useState<number | null>(null);
   const [highFreq, setHighFreq] = useState<number | null>(null);
   const [language, setLanguage] = useState<"en" | "gr">("gr");
