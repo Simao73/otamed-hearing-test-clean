@@ -6,56 +6,48 @@ interface Props {
 
 export const DisclaimerModal: React.FC<Props> = ({ onClose }) => {
   return (
-    <div style={overlayStyle}>
-      <div style={modalStyle}>
-        <p style={textStyle}>
-          Το τεστ αυτό είναι ενδεικτικό και δεν αποτελεί ιατρική μέτρηση της ακοής.
-          Για μία δωρεάν αξιολόγηση της ακοής σας επισκεφθείτε την{" "}
-          <strong>Otamed Ηλιάδης</strong> – Περδίκα 79 & Κ. Καραμανλή, Θεσσαλονίκη.
-          📞 <strong>2310 930434</strong> – 🌐 <a href="https://otamed.gr" target="_blank" rel="noopener noreferrer">otamed.gr</a>
-        </p>
-        <button onClick={onClose} style={buttonStyle}>OK</button>
-      </div>
+    <div style={bannerStyle}>
+      <p style={textStyle}>
+        Το τεστ αυτό είναι ενδεικτικό και δεν αποτελεί ιατρική μέτρηση της ακοής.
+        Για μία δωρεάν αξιολόγηση της ακοής σας επισκεφθείτε την{" "}
+        <strong>Otamed Ηλιάδης</strong>, Περδίκα 79 & Κ. Καραμανλή, Θεσσαλονίκη. 📞{" "}
+        <strong>2310 930434</strong> –{" "}
+        <a href="https://otamed.gr" target="_blank" rel="noopener noreferrer" style={{ color: "#fff", textDecoration: "underline" }}>
+          otamed.gr
+        </a>
+      </p>
+      <button onClick={onClose} style={buttonStyle}>OK</button>
     </div>
   );
 };
 
-const overlayStyle: React.CSSProperties = {
+const bannerStyle: React.CSSProperties = {
   position: "fixed",
-  top: 0,
+  bottom: 0,
   left: 0,
-  width: "100vw",
-  height: "100vh",
-  backgroundColor: "rgba(0, 0, 0, 0.5)",
+  width: "100%",
+  backgroundColor: "#1a1a1a",
+  color: "#fff",
+  padding: "15px 20px",
   display: "flex",
-  justifyContent: "center",
+  flexDirection: "column",
   alignItems: "center",
   zIndex: 1000,
 };
 
-const modalStyle: React.CSSProperties = {
-  backgroundColor: "rgba(255, 255, 255, 0.95)",
-  padding: "30px",
-  borderRadius: "10px",
-  maxWidth: "600px",
-  width: "90%",
-  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
+const textStyle: React.CSSProperties = {
+  margin: "0 0 10px 0",
+  fontSize: "0.95rem",
+  lineHeight: 1.5,
   textAlign: "center",
 };
 
-const textStyle: React.CSSProperties = {
-  fontSize: "1.1rem",
-  color: "#111",
-  marginBottom: "20px",
-  lineHeight: 1.6,
-};
-
 const buttonStyle: React.CSSProperties = {
-  padding: "10px 20px",
-  fontSize: "1rem",
   backgroundColor: "#0070f3",
   color: "#fff",
   border: "none",
-  borderRadius: "5px",
+  padding: "8px 16px",
+  borderRadius: "4px",
   cursor: "pointer",
+  fontSize: "0.9rem",
 };
