@@ -17,11 +17,14 @@ export const ResultDisplay: React.FC<Props> = ({
     <div style={{ textAlign: "center" }}>
       <h2>
         {language === "en"
-          ? `You heard from ${lowFreq}Hz to ${highFreq}Hz`
-          : `Ακούσατε από ${lowFreq}Hz έως ${highFreq}Hz`}
+          ? `You heard from ${lowFreq ?? 0}Hz to ${highFreq ?? 0}Hz`
+          : `Ακούσατε από ${lowFreq ?? 0}Hz έως ${highFreq ?? 0}Hz`}
       </h2>
       <button
-        onClick={onRestart}
+        onClick={() => {
+          console.log("New Test button clicked"); // 🔍 για debugging
+          onRestart();
+        }}
         style={{
           marginTop: "20px",
           padding: "10px 20px",
