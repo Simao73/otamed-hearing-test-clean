@@ -33,7 +33,7 @@ export default function Home() {
 
   const handleStartTest = () => {
     setStage("testing");
-  };
+  }
   const restartTest = () => {
   setStage("ready");
   setLowFreq(null);
