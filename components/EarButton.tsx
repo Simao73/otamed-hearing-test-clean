@@ -20,49 +20,42 @@ export const EarButton: React.FC<Props> = ({
   const audioRef = useRef<AudioContext | null>(null);
   const oscillatorRef = useRef<OscillatorNode | null>(null);
   const startTimeRef = useRef<number>(0);
-  const [startFreq] = useState(200); // Hz
-  const [endFreq] = useState(20000); // Hz
-  const duration = 20; // seconds
-
-  const startTest = () => {
-    const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
-    const oscillator = audioCtx.createOscillator();
-    oscillator.type = "sine";
-    oscillator.frequency.setValueAtTime(startFreq, audioCtx.currentTime);
-    oscillator.frequency.linearRampToValueAtTime(endFreq, audioCtx.currentTime + duration);
-    oscillator.connect(audioCtx.destination);
-    oscillator.start();
-
-    audioRef.current = audioCtx;
-    oscillatorRef.current = oscillator;
-    startTimeRef.current = audioCtx.currentTime;
-    setLowFreq(startFreq);
-    setPlaying(true);
-  };
-
-  const stopTest = () => {
-    const audioCtx = audioRef.current;
-    const oscillator = oscillatorRef.current;
-    const elapsed = (audioCtx?.currentTime || 0) - startTimeRef.current;
-    const estimatedFreq = Math.round(
-      startFreq + ((endFreq - startFreq) * (elapsed / duration))
-    );
-    setHighFreq(estimatedFreq);
-    oscillator?.stop();
-    audioCtx?.close();
-    setPlaying(false);
-    setStage("done");
-  };
+  const startFreq = 200;
+  const endFreq = 20000;
+  const duration = 20;
 
   useEffect(() => {
     if (stage === "testing" && !playing) {
-      startTest();
+      const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const oscillator = audioCtx.createOscillator();
+      oscillator.type = "sine";
+      oscillator.frequency.setValueAtTime(startFreq, audioCtx.currentTime);
+      oscillator.frequency.linearRampToValueAtTime(endFreq, audioCtx.currentTime + duration);
+      oscillator.connect(audioCtx.destination);
+      oscillator.start();
+
+      audioRef.current = audioCtx;
+      oscillatorRef.current = oscillator;
+      startTimeRef.current = audioCtx.currentTime;
+      setLowFreq(startFreq);
+      setPlaying(true);
     }
-  }, [stage]);
+  }, [stage, playing]);
 
   const handleClick = () => {
-    if (stage === "testing" && playing) {
-      stopTest();
+    if (playing && stage === "testing") {
+      const audioCtx = audioRef.current;
+      const oscillator = oscillatorRef.current;
+      const elapsed = (audioCtx?.currentTime || 0) - startTimeRef.current;
+      const estimatedFreq = Math.round(
+        startFreq + ((endFreq - startFreq) * (elapsed / duration))
+      );
+
+      setHighFreq(estimatedFreq);
+      oscillator?.stop();
+      audioCtx?.close();
+      setPlaying(false);
+      setStage("done");
     }
   };
 
@@ -70,7 +63,7 @@ export const EarButton: React.FC<Props> = ({
     <div
       onClick={handleClick}
       style={{
-        cursor: stage === "testing" ? "pointer" : "default",
+        cursor: "pointer",
         userSelect: "none",
         display: "inline-block",
         animation: playing ? "pulse 1s infinite" : "none",
