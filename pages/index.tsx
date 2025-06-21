@@ -50,6 +50,7 @@ export default function Home() {
         <LanguageSelector language={language} setLanguage={setLanguage} />
 
         <h1>{t.title}</h1>
+console.log("Current stage is:", stage);
 
         {stage === "ready" && (
           <p>
