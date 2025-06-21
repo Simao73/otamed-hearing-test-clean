@@ -1,50 +1,40 @@
 import React from "react";
 
-interface Props {
-  language: "en" | "gr";
-  onClose: () => void;
-}
-
-export const DisclaimerModal: React.FC<Props> = ({ language, onClose }) => {
+export const DisclaimerModal = ({ onClose }: { onClose: () => void }) => {
   return (
     <div style={{
       position: "fixed",
-      top: 0,
-      left: 0,
-      width: "100vw",
-      height: "100vh",
+      top: 0, left: 0, width: "100%", height: "100%",
       backgroundColor: "rgba(0, 0, 0, 0.5)",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      zIndex: 9999,
+      display: "flex", justifyContent: "center", alignItems: "center",
+      zIndex: 9999
     }}>
       <div style={{
-        background: "white",
+        background: "#fff",
         padding: "30px",
-        borderRadius: "10px",
-        maxWidth: "500px",
+        borderRadius: "8px",
         textAlign: "center",
-        boxShadow: "0 0 15px rgba(0,0,0,0.3)",
+        maxWidth: "400px",
+        boxShadow: "0 2px 12px rgba(0,0,0,0.3)"
       }}>
-        <h2>{language === "gr" ? "Αποποίηση Ευθύνης" : "Disclaimer"}</h2>
-        <p style={{ marginBottom: "20px" }}>
-          {language === "gr"
-            ? "Το τεστ αυτό είναι ενδεικτικό και δεν αποτελεί Ιατρική μέτρηση της Ακοής.\n\nΓια μια δωρεάν αξιολόγηση της Ακοής σας: Otamed Ηλιάδης, Περδίκα 79 & Κ. Καραμανλή, Θεσσαλονίκη. ☎️ 2310930434 – otamed.gr"
-            : "This test is indicative and does not replace a medical hearing evaluation.\n\nFor a free hearing check-up: Otamed Iliadis, Thessaloniki – ☎️ 2310930434 – otamed.gr"}
+        <h3>🔊 Ενδεικτικό Τεστ</h3>
+        <p>
+          Το τεστ αυτό είναι ενδεικτικό και δεν αποτελεί ιατρική μέτρηση.
+          Για δωρεάν αξιολόγηση της ακοής σας: <br/>
+          <strong>Otamed Ηλιάδης</strong><br/>
+          Περδίκα 79 & Κ. Καραμανλή – Θεσσαλονίκη<br/>
+          📞 2310 930434 – <a href="https://otamed.gr" target="_blank">otamed.gr</a>
         </p>
-        <button
-          onClick={onClose}
-          style={{
-            padding: "10px 20px",
-            fontSize: "1rem",
-            backgroundColor: "#001f3f",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-          }}
-        >
+        <button onClick={onClose} style={{
+          marginTop: "20px",
+          padding: "10px 20px",
+          fontSize: "1rem",
+          backgroundColor: "#0070f3",
+          color: "#fff",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer"
+        }}>
           OK
         </button>
       </div>
