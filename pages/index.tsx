@@ -6,6 +6,7 @@ import { EarButton } from "../components/EarButton";
 import { ResultDisplay } from "../components/ResultDisplay";
 import { LanguageSelector } from "../components/LanguageSelector";
 import { translations } from "../utils/translations";
+import { DisclaimerModal } from "../components/DisclaimerModal";
 
 export default function Home() {
   const [stage, setStage] = useState<"ready" | "start" | "testing" | "done">("ready");
