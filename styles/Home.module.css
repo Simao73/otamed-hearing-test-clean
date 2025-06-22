@@ -51,6 +51,7 @@
 }
 
 .heading {
+  font-size: 2rem;
   z-index: 1;
 }
 
@@ -79,10 +80,8 @@
     max-width: 300px;
   }
 
- .heading {
-  font-size: 1.4rem;
-}
-
+  .heading {
+    font-size: 1.4rem;
   }
 
   p {
