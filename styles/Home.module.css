@@ -52,10 +52,13 @@
 
 .heading {
   font-size: 2rem;
+  margin-bottom: 1rem;
   z-index: 1;
 }
 
 .paragraph {
+  font-size: 1rem;
+  padding: 0 10px;
   z-index: 1;
 }
 
@@ -83,3 +86,8 @@
   .heading {
     font-size: 1.4rem;
   }
+
+  .paragraph {
+    font-size: 0.95rem;
+  }
+}
