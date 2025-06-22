@@ -27,14 +27,15 @@ export default function Home() {
     }
   }, [countdown, stage]);
 
+  useEffect(() => {
+    if (stage === "done") {
+      setShowDisclaimer(true);
+    }
+  }, [stage]);
+
   const handleStartTest = () => {
     setStage("testing");
   };
-useEffect(() => {
-  if (stage === "done") {
-    setShowDisclaimer(true);
-  }
-}, [stage]);
 
   const restartTest = () => {
     setLowFreq(null);
@@ -55,10 +56,10 @@ useEffect(() => {
 
         <LanguageSelector language={language} setLanguage={setLanguage} />
 
-        <h1>{t.title}</h1>
+        <h1 className={styles.heading}>{t.title}</h1>
 
         {stage === "ready" && (
-          <p>
+          <p className={styles.paragraph}>
             {language === "en"
               ? `Test starts in ${countdown}...`
               : `Το τεστ ξεκινά σε ${countdown}...`}
@@ -73,7 +74,7 @@ useEffect(() => {
 
         {stage === "testing" && (
           <>
-            <p>
+            <p className={styles.paragraph}>
               {language === "en"
                 ? "Tap the ear when you stop hearing the tone"
                 : "Πάτα το αυτί όταν σταματήσεις να ακούς"}
@@ -96,11 +97,11 @@ useEffect(() => {
             onRestart={restartTest}
           />
         )}
+
         {showDisclaimer && (
-  <DisclaimerModal onClose={() => setShowDisclaimer(false)} />
-)}
+          <DisclaimerModal onClose={() => setShowDisclaimer(false)} />
+        )}
       </main>
     </>
   );
 }
-
