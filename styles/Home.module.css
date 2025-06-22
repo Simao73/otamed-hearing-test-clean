@@ -79,8 +79,10 @@
     max-width: 300px;
   }
 
-  h1 {
-    font-size: 1.4rem;
+ .heading {
+  font-size: 1.4rem;
+}
+
   }
 
   p {
