@@ -60,14 +60,10 @@ export default function Home() {
         <h1 className={styles.heading}>{t.title}</h1>
        {stage === "calibration" && (
   <>
-    <Calibration />
-    <button
-      className={styles.startButton}
-      onClick={() => setStage("ready")}
-      style={{ marginTop: "1rem" }}
-    >
-      {language === "gr" ? "Συνέχεια στο Τεστ" : "Continue to Test"}
-    </button>
+   {stage === "calibration" && (
+  <Calibration language={language} onConfirm={() => setStage("ready")} />
+)}
+
   </>
 
 )}
