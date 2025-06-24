@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import styles from "../styles/Home.module.css";
 
 interface Props {
   language: "en" | "gr";
@@ -6,41 +7,22 @@ interface Props {
 }
 
 export const Calibration: React.FC<Props> = ({ language, onConfirm }) => {
-  const [playing, setPlaying] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
+  const [playing, setPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
-  const playTone = () => {
-    const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
-    const oscillator = audioCtx.createOscillator();
-    const gainNode = audioCtx.createGain();
-
-    oscillator.type = "sine";
-    oscillator.frequency.setValueAtTime(1000, audioCtx.currentTime);
-    gainNode.gain.setValueAtTime(0.2, audioCtx.currentTime); // ≈40% ένταση
-
-    oscillator.connect(gainNode);
-    gainNode.connect(audioCtx.destination);
-
-    setPlaying(true);
-    oscillator.start();
-    oscillator.stop(audioCtx.currentTime + 2);
-    setTimeout(() => setPlaying(false), 2000);
+  const handlePlay = () => {
+    if (audioRef.current) {
+      audioRef.current.play();
+      setPlaying(true);
+      setTimeout(() => setPlaying(false), 2000); // optional visual timeout
+    }
   };
 
   return (
-    <div
-      style={{
-        marginTop: "30px",
-        maxWidth: "500px",
-        padding: "20px",
-        backgroundColor: "#002b5c",
-        borderRadius: "10px",
-        color: "white",
-        textAlign: "center",
-      }}
-    >
+    <div className={styles.calibrationBox}>
       <h2>🎧 {language === "gr" ? "Έλεγχος Ήχου" : "Sound Check"}</h2>
-      <p style={{ fontSize: "1rem", lineHeight: "1.6" }}>
+      <p>
         {language === "gr" ? (
           <>
             Πατήστε "Δοκιμή Ήχου" για να ακούσετε έναν σταθερό ήχο 1000Hz.
@@ -60,18 +42,12 @@ export const Calibration: React.FC<Props> = ({ language, onConfirm }) => {
         )}
       </p>
 
+      <audio ref={audioRef} src="/sounds/calibration-1000hz.mp3" preload="auto" className={styles.audioPlayer} />
+
       <button
-        onClick={playTone}
-        style={{
-          marginTop: "15px",
-          padding: "10px 20px",
-          fontSize: "1rem",
-          backgroundColor: "#0070f3",
-          border: "none",
-          borderRadius: "6px",
-          color: "white",
-          cursor: "pointer",
-        }}
+        onClick={handlePlay}
+        className={styles.startButton}
+        style={{ marginTop: "10px" }}
       >
         {playing ? "🔊 ..." : "🔈 " + (language === "gr" ? "Δοκιμή Ήχου" : "Sound Test")}
       </button>
