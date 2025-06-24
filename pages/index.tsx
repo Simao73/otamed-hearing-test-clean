@@ -70,6 +70,21 @@ export default function Home() {
         ? "Ο browser σας δεν υποστηρίζει αναπαραγωγή ήχου."
         : "Your browser does not support audio playback."}
     </audio>
+     <p style={{ fontSize: "0.9rem", marginTop: "10px", color: "#ccc" }}>
+      {language === "gr"
+        ? "Αν δεν ακούτε, αυξήστε την ένταση του κινητού ή χρησιμοποιήστε ακουστικά."
+        : "If you can't hear it, increase your phone volume or try headphones."}
+    </p>
+
+    <button
+      className={styles.startButton}
+      onClick={() => setStage("ready")}
+      style={{ marginTop: "1rem" }}
+    >
+      {language === "gr" ? "Ναι, τον άκουσα" : "Yes, I heard it"}
+    </button>
+  </>
+)}
     <button
       className={styles.startButton}
       onClick={() => setStage("ready")}
