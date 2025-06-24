@@ -9,7 +9,7 @@ import { translations } from "../utils/translations";
 import { DisclaimerModal } from "../components/DisclaimerModal";
 
 export default function Home() {
-  const [stage, setStage] = useState<"ready" | "start" | "testing" | "done">("ready");
+  const [stage, setStage] = useState<"calibration" | "ready" | "start" | "testing" | "done">("calibration");
   const [lowFreq, setLowFreq] = useState<number | null>(null);
   const [highFreq, setHighFreq] = useState<number | null>(null);
   const [language, setLanguage] = useState<"en" | "gr">("gr");
@@ -57,6 +57,29 @@ export default function Home() {
         <LanguageSelector language={language} setLanguage={setLanguage} />
 
         <h1 className={styles.heading}>{t.title}</h1>
+        {stage === "calibration" && (
+  <>
+    <p>
+      {language === "gr"
+        ? "Πατήστε Play και βεβαιωθείτε ότι ακούτε τον ήχο καθαρά."
+        : "Tap Play and make sure you can hear the sound clearly."}
+    </p>
+    <audio controls autoPlay style={{ marginTop: "1rem" }}>
+      <source src="/sounds/calibration-1000hz.mp3" type="audio/mp3" />
+      {language === "gr"
+        ? "Ο browser σας δεν υποστηρίζει αναπαραγωγή ήχου."
+        : "Your browser does not support audio playback."}
+    </audio>
+    <button
+      className={styles.startButton}
+      onClick={() => setStage("ready")}
+      style={{ marginTop: "1rem" }}
+    >
+      {language === "gr" ? "Ναι, τον άκουσα" : "Yes, I heard it"}
+    </button>
+  </>
+)}
+
 {stage === "ready" && (
   <div className={styles.calibrationBox}>
     <p>
