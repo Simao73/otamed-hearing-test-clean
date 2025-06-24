@@ -69,8 +69,7 @@ export default function Home() {
       {language === "gr" ? "Συνέχεια στο Τεστ" : "Continue to Test"}
     </button>
   </>
-)}
-  </>
+
 )}
    
         {stage === "ready" && (
