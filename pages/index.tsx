@@ -80,27 +80,6 @@ export default function Home() {
   </>
 )}
 
-{stage === "ready" && (
-  <div className={styles.calibrationBox}>
-    <p>
-      {language === "en"
-        ? "🛠 Before the test starts, make sure you can hear this tone clearly:"
-        : "🛠 Πριν ξεκινήσει το τεστ, βεβαιωθείτε ότι ακούτε καθαρά αυτόν τον ήχο:"}
-    </p>
-    <audio autoPlay controls>
-      <source src="/sounds/calibration-1000hz.mp3" type="audio/mpeg" />
-      {language === "en"
-        ? "Your browser does not support the audio element."
-        : "Ο browser σας δεν υποστηρίζει το στοιχείο ήχου."}
-    </audio>
-    <p>
-      {language === "en"
-        ? "If you can't hear the tone well, please increase your device volume."
-        : "Αν δεν ακούτε καλά τον ήχο, αυξήστε την ένταση της συσκευής σας."}
-    </p>
-  </div>
-)}
-
         {stage === "ready" && (
           <p className={styles.paragraph}>
             {language === "en"
