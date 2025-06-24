@@ -99,9 +99,9 @@
     padding: 0 10px;
   }
 
-  audio {
-    width: 100%;
-  }
+  .audioPlayer {
+  width: 100%;
+}
 
   h1 {
     font-size: 1.5rem;
