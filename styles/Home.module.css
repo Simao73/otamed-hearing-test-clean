@@ -103,10 +103,10 @@
   width: 100%;
 }
 
-  h1 {
-    font-size: 1.5rem;
-    margin: 10px 0;
-  }
+  .heading h1 {
+  font-size: 1.5rem;
+  margin: 10px 0;
+}
 
   .calibrationBox {
     padding: 10px;
