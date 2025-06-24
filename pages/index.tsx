@@ -85,16 +85,7 @@ export default function Home() {
     </button>
   </>
 )}
-    <button
-      className={styles.startButton}
-      onClick={() => setStage("ready")}
-      style={{ marginTop: "1rem" }}
-    >
-      {language === "gr" ? "Ναι, τον άκουσα" : "Yes, I heard it"}
-    </button>
-  </>
-)}
-
+   
         {stage === "ready" && (
           <p className={styles.paragraph}>
             {language === "en"
