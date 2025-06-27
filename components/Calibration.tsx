@@ -12,12 +12,15 @@ export const Calibration: React.FC<Props> = ({ language, onConfirm }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const handlePlay = () => {
-    if (audioRef.current) {
-      audioRef.current.play();
-      setPlaying(true);
-      setTimeout(() => setPlaying(false), 2000);
-    }
-  };
+  if (audioRef.current) {
+    audioRef.current.play();
+    setPlaying(true);
+    audioRef.current.onended = () => {
+      setPlaying(false);
+    };
+  }
+};
+
 
   return (
     <div className={styles.calibrationBox}>
