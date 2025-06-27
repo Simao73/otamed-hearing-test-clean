@@ -112,4 +112,28 @@
     padding: 10px;
     font-size: 0.95rem;
   }
+  .waveAnimation {
+  width: 60px;
+  height: 60px;
+  margin: 20px auto;
+  border: 3px solid #00c0ff;
+  border-radius: 50%;
+  animation: pulse 1s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+}
+
 }
