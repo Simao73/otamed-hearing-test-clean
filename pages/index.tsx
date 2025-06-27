@@ -16,6 +16,11 @@ export default function Home() {
   const [language, setLanguage] = useState<"en" | "gr">("gr");
   const [countdown, setCountdown] = useState(3);
   const [showDisclaimer, setShowDisclaimer] = useState(false);
+  const [calibrationVolume, setCalibrationVolume] = useState<string | null>(null);
+  const handleCalibrationConfirm = (volumeLevel: string) => {
+  setCalibrationVolume(volumeLevel);
+  setStage("ready");
+};
 
   const t = translations[language];
 
@@ -62,6 +67,14 @@ export default function Home() {
   <>
    {stage === "calibration" && (
   <Calibration language={language} onConfirm={() => setStage("ready")} />
+    {stage === "calibration" && (
+  <Calibration language={language} onConfirm={handleCalibrationConfirm} />
+   {calibrationVolume && (
+  <p style={{ fontSize: "0.9rem", color: "#ccc" }}>
+    Volume Level Selected: {calibrationVolume}
+  </p>
+)}
+
 )}
 
   </>
