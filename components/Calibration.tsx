@@ -15,7 +15,7 @@ export const Calibration: React.FC<Props> = ({ language, onConfirm }) => {
     if (audioRef.current) {
       audioRef.current.play();
       setPlaying(true);
-      setTimeout(() => setPlaying(false), 2000); // optional visual timeout
+      setTimeout(() => setPlaying(false), 2000);
     }
   };
 
@@ -42,19 +42,23 @@ export const Calibration: React.FC<Props> = ({ language, onConfirm }) => {
         )}
       </p>
 
-      <audio ref={audioRef} src="/sounds/calibration-1000hz.mp3" preload="auto" className={styles.audioPlayer} />
+      <audio
+        ref={audioRef}
+        src="/sounds/calibration-1000hz.mp3"
+        preload="auto"
+        className={styles.audioPlayer}
+      />
 
       <button
         onClick={handlePlay}
         className={styles.startButton}
         style={{ marginTop: "10px" }}
-        {playing && (
- 
       >
         {playing ? "🔊 ..." : "🔈 " + (language === "gr" ? "Δοκιμή Ήχου" : "Sound Test")}
       </button>
- <div className="waveAnimation"></div>
-      )}
+
+      {playing && <div className={styles.waveAnimation}></div>}
+
       <div style={{ marginTop: "15px" }}>
         <button
           disabled={!confirmed}
