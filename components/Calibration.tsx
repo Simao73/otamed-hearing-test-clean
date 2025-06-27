@@ -12,13 +12,16 @@ export const Calibration: React.FC<Props> = ({ language, onConfirm }) => {
   const [volumeLevel, setVolumeLevel] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  const handlePlay = () => {
-    if (audioRef.current) {
-      audioRef.current.play();
-      setPlaying(true);
-      setTimeout(() => setPlaying(false), 3000);
-    }
-  };
+ const handlePlay = () => {
+  if (audioRef.current) {
+    audioRef.current.play();
+    setPlaying(true);
+
+    audioRef.current.onended = () => {
+      setPlaying(false);
+    };
+  }
+};
 
   const isReady = confirmed && volumeLevel;
 
@@ -50,7 +53,16 @@ export const Calibration: React.FC<Props> = ({ language, onConfirm }) => {
       <button onClick={handlePlay} className={styles.startButton} style={{ marginTop: "10px" }}>
         {playing ? "🔊 ..." : "🔈 " + (language === "gr" ? "Δοκιμή Ήχου" : "Sound Test")}
       </button>
-      {playing && <div className={styles.waveBars} />}
+      {playing && (
+  <div className={styles.waveBars}>
+    <div className={styles.bar}></div>
+    <div className={styles.bar}></div>
+    <div className={styles.bar}></div>
+    <div className={styles.bar}></div>
+    <div className={styles.bar}></div>
+  </div>
+)}
+
 
       <div style={{ marginTop: "10px" }}>
         <label>
