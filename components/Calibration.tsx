@@ -48,6 +48,10 @@ export const Calibration: React.FC<Props> = ({ language, onConfirm }) => {
         onClick={handlePlay}
         className={styles.startButton}
         style={{ marginTop: "10px" }}
+        {playing && (
+  <div className="waveAnimation"></div>
+)}
+
       >
         {playing ? "🔊 ..." : "🔈 " + (language === "gr" ? "Δοκιμή Ήχου" : "Sound Test")}
       </button>
