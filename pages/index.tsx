@@ -65,17 +65,15 @@ export default function Home() {
         <h1 className={styles.heading}>{t.title}</h1>
        {stage === "calibration" && (
   <>
-   {stage === "calibration" && (
-  <Calibration language={language} onConfirm={() => setStage("ready")} />
-    {stage === "calibration" && (
-  <Calibration language={language} onConfirm={handleCalibrationConfirm} />
-   {calibrationVolume && (
-  <p style={{ fontSize: "0.9rem", color: "#ccc" }}>
-    Volume Level Selected: {calibrationVolume}
-  </p>
+    <Calibration language={language} onConfirm={handleCalibrationConfirm} />
+    {calibrationVolume && (
+      <p style={{ fontSize: "0.9rem", color: "#ccc" }}>
+        Volume Level Selected: {calibrationVolume}
+      </p>
+    )}
+  </>
 )}
 
-)}
 
   </>
 
