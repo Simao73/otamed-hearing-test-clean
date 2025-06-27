@@ -75,14 +75,7 @@
   padding: 0 10px;
   z-index: 1;
 }
- .waveAnimation {
-  width: 60px;
-  height: 60px;
-  margin: 20px auto;
-  border: 3px solid #00c0ff;
-  border-radius: 50%;
-  animation: pulse 1s infinite ease-in-out;
-}
+
 .waveBars {
   display: flex;
   justify-content: center;
