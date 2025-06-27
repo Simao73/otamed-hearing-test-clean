@@ -72,11 +72,7 @@ export default function Home() {
       </p>
     )}
   </>
-)}
-
-
-)}
-   
+)}   
         {stage === "ready" && (
           <p className={styles.paragraph}>
             {language === "en"
