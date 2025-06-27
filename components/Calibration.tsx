@@ -60,7 +60,14 @@ export const Calibration: React.FC<Props> = ({ language, onConfirm }) => {
         {playing ? "🔊 ..." : "🔈 " + (language === "gr" ? "Δοκιμή Ήχου" : "Sound Test")}
       </button>
 
-      {playing && <div className={styles.waveAnimation}></div>}
+     {playing && (
+  <div className={styles.waveBars}>
+    {[...Array(5)].map((_, i) => (
+      <div key={i} className={styles.bar}></div>
+    ))}
+  </div>
+)}
+
 
       <div style={{ marginTop: "15px" }}>
         <button
